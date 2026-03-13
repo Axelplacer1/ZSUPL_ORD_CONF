@@ -54,6 +54,16 @@
             "parameters": {},
             "additionalParameters": "allowed"
           }
+        },
+        "ZSupplierOrderConfirmation-manage": {
+          "semanticObject": "ZSupplierOrderConfirmation",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -114,6 +124,11 @@
       "@i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "uri": "i18n/i18n.properties"
+      },
+      "tempModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false
       }
     },
     "resources": {
@@ -123,6 +138,50 @@
       "config": {},
       "routes": [],
       "targets": {}
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+            "controllerName": "au.com.iesol.po.confirmation.variance.ext.ListController",
+            "sap.ui.generic.app": {
+              "xIESOLxC_SUPL_CONFIRMATION": {
+                "EntitySet": "xIESOLxC_SUPL_CONFIRMATION",
+                "Actions": {
+                  "Accept": {
+                    "id": "idButtonAccept",
+                    "text": "{i18n>ACCEPT_BUTTON_TEXT}",
+                    "press": "onVarianceAccept",
+                    "icon": "sap-icon://accept",
+                    "requiresSelection": true
+                  },
+                  "Reject": {
+                    "id": "idButtonReject",
+                    "text": "{i18n>REJECT_BUTTON_TEXT}",
+                    "press": "onVarianceReject",
+                    "icon": "sap-icon://delete",
+                    "requiresSelection": true
+                  },
+                  "DeletePoItem": {
+                    "id": "idButtonDeletePOItem",
+                    "text": "{i18n>DEL_PO_ITEM_BUTTON_TEXT}",
+                    "press": "onDeletePoItem",
+                    "icon": "sap-icon://delete",
+                    "requiresSelection": true
+                  },
+                  "Resolved": {
+                    "id": "idButtonResolved",
+                    "text": "{i18n>RESOLVED_BUTTON_TEXT}",
+                    "press": "onResolved",
+                    "icon": "sap-icon://delete",
+                    "requiresSelection": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "sap.ui.generic.app": {
@@ -131,7 +190,11 @@
       "forceGlobalRefresh": false,
       "objectPageHeaderType": "Dynamic",
       "considerAnalyticalParameters": true,
-      "showDraftToggle": false
+      "showDraftToggle": false,
+      "flexibleColumnLayout": {
+        "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+        "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+      }
     },
     "pages": {
       "ListReport|xIESOLxC_SUPL_CONFIRMATION": {
@@ -143,10 +206,20 @@
             "condensedTableLayout": true,
             "smartVariantManagement": true,
             "enableTableFilterInPageVariant": true,
+            "loadDataOnAppLaunch": false,
+            "gridTable": true,
             "filterSettings": {
               "dateSettings": {
                 "useDateRange": true
               }
+            },
+            "tableSettings": {
+              "type": "GridTable",
+              "selectionLimit": 200,
+              "multiSelect": true,
+              "selectAll": true,
+              "smartVariantManagement": true,
+              "condensedTableLayout": true
             }
           }
         },

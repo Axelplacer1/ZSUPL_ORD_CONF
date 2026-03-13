@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form" xmlns:AppData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+    <Dialog id="_IDGenDialog2" contentWidth="50%" contentHeight="30%" title="{i18n>REJECTION_REASONS_TITLE}" draggable="true" class="sapUiSizeCompact"
+        afterOpen="" afterClose="onDialogClose">
+
+		<content>
+            <f:Form id="_IDGenForm" editable="true" title="" class="sapUiSmallMargin">
+				<f:layout>
+					<f:ResponsiveGridLayout id="_IDGenResponsiveGridLayout" labelSpanL="12" labelSpanM="12" labelSpanXL="12" labelSpanS="12" columnsL="1" columnsM="1" columnsXL="1"
+						singleContainerFullSize="false"/>
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer id="_IDGenFormContainer">
+						<f:formElements>
+							<f:FormElement id="_IDGenFormElement">
+								<f:label>
+									<Label id="_IDGenLabel2" text="{i18n>REJECTION_REASONS}"/>
+								</f:label>
+								<f:fields>
+									<TextArea id="_IDGenTextArea" enabled="true" rows="5" width="90%" value="{tempModel>/rejectionReason}" required="true"></TextArea>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+        </content>
+		
+		<buttons>
+			<Button id="_IDGenButton4" text="{i18n>CANCEL}" type="Accept" press="onCancelAction" enabled="{= ${tempModel>/cancelled} !==true}"/>
+			<Button id="_IDGenButton5" text="{i18n>CONTINUE}" type="Accept" press="RejectVarianceContinue" enabled="{tempModel>/enableClose}" />
+		</buttons>
+	</Dialog>
+
+</core:FragmentDefinition>

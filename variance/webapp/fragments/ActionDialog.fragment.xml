@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f" xmlns:POData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+    <Dialog id="idActionDialog" contentWidth="50%" contentHeight="50%" title="" draggable="true" class="sapUiSizeCompact"
+        afterOpen="onAfterOpeningActionDialog" afterClose="onDialogClose">
+
+		
+		<Text id="_IDGenText" text="{i18n>ACTIONING_PO_ITEM} {tempModel>/actioning}" class="sapUiSmallMargin"/>
+		<ProgressIndicator id="_IDGenProgressIndicator" displayOnly="false" percentValue="{tempModel>/actioned}" showValue="false" class="sapUiSmallMargin"
+			width="96%"/>
+		<Table id="_IDActionGenTable" class="sapUiSmallMargin" items="{tempModel>/messages}" width="96%">
+			<columns>
+				<Column id="_IDGenColumn1" width="10rem"><Text id="_IDGenText1" text="{i18n>PURCHASE_ORDER_ITEM}"/></Column>
+				<Column id="_IDGenColumn2" width="5rem"><Text id="_IDGenText2" text="{i18n>MESSAGE_TYPE}"/></Column>
+				<Column id="_IDGenColumn3"><Text id="_IDGenText3" text="{i18n>MESSAGE_TEXT}"/></Column>
+				
+			</columns>
+			<ColumnListItem id="_IDGenColumnListItem">
+				<Label id="_IDGenLabel" text="{tempModel>purchaseOrder}"></Label>
+				<core:Icon id="_IDGenIcon" src="{tempModel>icon}"></core:Icon>
+				<Label id="_IDGenLabel1" text="{tempModel>title}"></Label>
+			</ColumnListItem>
+
+            
+        </Table>
+		
+		<buttons>
+			<Button id="_IDGenButton" text="{i18n>CANCEL}" type="Accept" press="onCancelAction" enabled="{= ${tempModel>/cancelled} !==true}"/>
+			<Button id="_IDGenButton1" text="{i18n>CLOSE}" type="Accept" press="onDialogClose" enabled="{tempModel>/enableClose}" POData:refresh="X"/>
+		</buttons>
+	</Dialog>
+
+</core:FragmentDefinition>
