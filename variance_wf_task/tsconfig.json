@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@sapui5/types"
+    ],
+    "rootDir": "./webapp",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "au/com/iesol/po/confirmation/variancewftask/*": [
+        "./webapp/*"
+      ],
+      "unit/*": [
+        "./webapp/test/unit/*"
+      ],
+      "integration/*": [
+        "./webapp/test/integration/*"
+      ]
+    },
+    
+  },
+  "include": [
+    "./webapp/**/*"
+  ]
+}

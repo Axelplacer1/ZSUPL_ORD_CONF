@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f" xmlns:POData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	
+	<Dialog id="_IDGenDialog1" contentWidth="40rem" contentHeight="30rem" title="{i18n>appTitle}" draggable="true" class="sapUiSizeCompact" verticalScrolling="false" resizable="true">
+		<customHeader>
+            <OverflowToolbar id="_IDGenOverflowToolbar" >
+                <Button id="_IDGenButton" text="{i18n>BACK}" icon="sap-icon://nav-back" press="MessageViewNavBack" visible="{tempModel>/navigateBack}"/>
+                <ToolbarSpacer id="_IDGenToolbarSpacer"/>
+                <Title id="_IDGenTitle2" text="{i18n>appTitle}"/>
+                <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+        <MessageView  showDetailsPageHeader="false" id="idErrorMessageViewInDialog"
+            items="{tempModel>/messages}" itemSelect="onMessageViewItemSelect">
+
+            <MessageItem id="_IDGenMessageItem" type="{tempModel>type}" title="{tempModel>title}" description="{tempModel>description}"/>
+
+        </MessageView>
+        </content>
+		<buttons>
+			<Button id="_IDGenButton1" text="{i18n>CLOSE}" type="Accept" press="onDialogClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

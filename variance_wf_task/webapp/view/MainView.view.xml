@@ -1,0 +1,230 @@
+<mvc:View controllerName="au.com.iesol.po.confirmation.variancewftask.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:m="sap.m" 
+	xmlns="sap.uxap"
+	xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" 
+	>
+    
+    <ObjectPageLayout id="ObjectPageLayout" subSectionLayout="TitleOnLeft" showTitleInHeaderContent="true" class="confrmationDetails">
+        <headerTitle>
+			
+            <ObjectPageDynamicHeaderTitle id="idObjectDynamicTitle">
+                <expandedHeading>
+                    <m:FlexBox id="_IDGenFlexBox1" wrap="Wrap" fitContainer="true" alignItems="Center">
+                        <m:Title id="_IDGenTitle" text="Confirmation Details" wrapping="true" class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+                        
+                    </m:FlexBox>
+                </expandedHeading>
+                <snappedHeading>
+                    <m:FlexBox id="_IDGenFlexBox2" wrap="NoWrap" fitContainer="true" alignItems="Center">
+                        <m:Title id="_IDGenTitle1" text="Confirmation Details" wrapping="true" class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+                        <m:Text text="PO:{PurchaseOrder} / Item:{PurchaseOrderItem}" id="idTxtPOItem1"/>
+                    </m:FlexBox>
+                </snappedHeading>
+                <expandedContent>
+					<m:Text text="{SupplierName}({Supplier})" id="idTxtSupplier3"/>
+				</expandedContent>
+
+				<snappedContent>
+					<m:Text text="{SupplierName}" id="idTxtSupplier4"/>
+				</snappedContent>
+                <actions>
+					<ObjectPageHeaderActionButton id="idActionButton1" hideText="false" text="Accept" type="Accept" tooltip="Approve and accept variance" press="onVarianceApprove"/>
+					<ObjectPageHeaderActionButton id="idActionButton2"  hideText="false" text="Reject" type="Reject" tooltip="Reject variance" press="onVarianceReject"/>
+                    <ObjectPageHeaderActionButton id="idActionButton3"  hideText="false" text="Resolve externally" type="Neutral" tooltip="Resolved externally" press="onResolvedExternally"/>
+					<ObjectPageHeaderActionButton id="idActionButton4" hideText="false"  text="Delete PO item" type="Reject" tooltip="Delete purchase order item" press="onDeletePOItem"/>
+				</actions>
+            </ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+        <headerContent>
+			
+            <layout:VerticalLayout id="idVerticalLayoutHeader">
+                <m:Label text="Purchase Order / Item" id="idlblPOItem2"/>
+                <m:Text text="{PurchaseOrder} / {PurchaseOrderItem}" id="idTxtPOItem2"/>
+                <m:Label text="Supplier" id="idlblSupplier2"/>
+                <m:Text text="{SupplierName}({Supplier})" id="idTxtSupplier2"/>
+            </layout:VerticalLayout>
+            
+        </headerContent>
+
+        <sections>
+			
+            <ObjectPageSection title="Price Information" id="idPriceInfo" titleUppercase="false">
+				<subSections>
+					<ObjectPageSubSection title="" id="idSubSectionPriceInfo">
+                        <f:Form editable="false" title="" class="sapUiSmallMargin" id="idFormPirce">
+                            <f:layout>
+                                <f:ResponsiveGridLayout id="_IDGenResponsiveGridLayout" labelSpanL="6" labelSpanM="6" labelSpanXL="6" labelSpanS="12" columnsL="2" columnsM="2" columnsXL="2"
+                                    singleContainerFullSize="false"/>
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer id="_IDGenFormContainer">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement3">
+                                            <m:Label id="1l" text="Price changed" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTextPriceChanged" text="{= ${PriceChanged}?'Yes':'No'}" />
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement">
+                                            <m:Label id="idLblConfirmedPrice" text="Confirmed net price" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfirmedNetPrice" text="{ConfirmedPrice} {Currency}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement2">
+                                            <m:Label id="idLblConfirmedPriceUnitQty" text="Confirmed price unit quantity" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfirmedNetPriceUnitQty" text="{ConfirmedPriceUnitQty}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement1">
+                                            <m:Label id="idLblConfirmedPriceUnit" text="Confirmed price unit" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfirmedNetPriceUnit" text="{ConfirmedUnitOfMeasure}"/>
+                                        </f:FormElement>
+                                        
+                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer id="_IDGenFormContainer1">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement4">
+                                            <m:Label id="idLblPOPrice" text="Order net price" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOPrice" text="{OrderNetPriceAmount} {DocumentCurrency}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement6">
+                                            <m:Label id="idLblPOPriceUnitQty" text="Order price unit quantity" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOPriceUnitQty" text="{PONetPriceQuantity}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement5">
+                                            <m:Label id="idLblPOPriceUnit" text="Order price unit" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOPriceUnit" text="{OrderPriceUnit}"/>
+                                        </f:FormElement>
+                                        
+                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+            <ObjectPageSection title="Confirmed Quantity" id="idQtyInfo" titleUppercase="false">
+				<subSections>
+					<ObjectPageSubSection title="" id="idSubSectionQtyinfo">
+						<f:Form editable="false" title="" class="sapUiSmallMargin" id="idFormQty">
+                            <f:layout>
+                                <f:ResponsiveGridLayout id="_IDGenResponsiveGridLayout1" labelSpanL="6" labelSpanM="6" labelSpanXL="6" labelSpanS="12" columnsL="2" columnsM="2" columnsXL="2"
+                                    singleContainerFullSize="false"/>
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer id="_IDGenFormContainer2">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement7">
+                                            <m:Label id="idLblConfirmedQty" text="Confirmed quantity" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfirmedQty" text="{ConfirmedQuantity} {ConfirmedUnitOfMeasure}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement9">
+                                            <m:Label id="idLblDeldtChanged" text="Delivery date changed" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtDelDtChanged" text="{= ${DeliveryDateChanged}?'Yes':'No'}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement8">
+                                            <m:Label id="idLblConfirmedVMN" text="Confirmed vendor material" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfirmedVMN" text="{ConfirmedVendorMaterialNumber}"/>
+                                        </f:FormElement>
+                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer id="_IDGenFormContainer3">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement10">
+                                            <m:Label id="idLblPOQty" text="Order quantity" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOQty" text="{OrderQuantity} {PurchaseOrderQuantityUnit}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement11">
+                                            <m:Label id="idLblPoVMN" text="Order vendor material" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOVMN" text="{SupplierMaterialNumber}"/>
+                                        </f:FormElement>
+                                       <f:FormElement id="_IDGenFormElement19">
+                                            <m:Label id="idLblVMNChanged" text="Vendor Material changed" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtVMNChanged" text="{= ${VendorMaterialNumberChanged}?'Yes':'No'}"/>
+                                        </f:FormElement>
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+            <ObjectPageSection title="Schedule Lines" id="idSectionSchlLines" titleUppercase="false" >
+				<subSections>
+					<ObjectPageSubSection title="" id="idSubSectionSchlLines">
+						<m:Table id="idSchlLinesTable" items="{to_ConfirmedScheduleLines}">
+                            <m:columns>
+                                <m:Column id="_IDGenColumn"><m:Label id="_IDGenLabel" text="Schedule Item"/></m:Column>
+                                <m:Column id="_IDGenColumn1"><m:Label id="_IDGenLabel1" text="Confirmed Qty"/></m:Column>
+                                <m:Column id="_IDGenColumn2"><m:Label id="_IDGenLabel2" text="Order Qty"/></m:Column>
+                                <m:Column id="_IDGenColumn3"><m:Label id="_IDGenLabel3" text="Confirmed UOM"/></m:Column>
+                                <m:Column id="_IDGenColumn4"><m:Label id="_IDGenLabel4" text="Delivery Date"/></m:Column>
+                                <m:Column id="_IDGenColumn5"><m:Label id="_IDGenLabel5" text="Delivery Time"/></m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem id="_IDGenColumnListItem" >
+                                    <m:cells>
+                                        <m:Text id="_IDGenText" text="{scheduleItem}"/>
+                                        <m:Text id="_IDGenText1" text="{scheduleQty}"/>
+                                        <m:Text id="_IDGenText2" text="{POQty}"/>
+                                        <m:Text id="_IDGenText3" text="{ConfirmedUnitOfMeasure}"/>
+                                        <m:Text id="_IDGenText4" text="{path:'DeliveryDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                                        <m:Text id="_IDGenText5" text="{path:'DeliveryTime',type:'sap.ui.model.odata.type.Time'}"/>
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                        </m:Table>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+             <ObjectPageSection title="Administration data" id="idAdminData" titleUppercase="false">
+				<subSections>
+					<ObjectPageSubSection title="" id="idSubSectionAdminData">
+						<f:Form editable="false" title="" class="sapUiSmallMargin" id="idFormAdmin">
+                            <f:layout>
+                                <f:ResponsiveGridLayout id="_IDGenResponsiveGridLayout2" labelSpanL="6" labelSpanM="6" labelSpanXL="6" labelSpanS="12" columnsL="2" columnsM="2" columnsXL="2"
+                                    singleContainerFullSize="false"/>
+                            </f:layout>
+                            <f:formContainers>
+                                <f:FormContainer id="_IDGenFormContainer4">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement13">
+                                            <m:Label id="idLblOPDate" text="PO Date" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPODate" text="{path:'PODate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                                        </f:FormElement>
+                                        
+                                        
+                                        <f:FormElement id="_IDGenFormElement14">
+                                            <m:Label id="idLblPOCreatedon" text="PO Created on" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOCreatedOn" text="{path:'POCreatedDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement15">
+                                            <m:Label id="idLblPOCreatedBy" text="PO Created by" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOCreatdBy" text="{POCreatedByUser}"/>
+                                        </f:FormElement>
+                                        
+                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                                <f:FormContainer id="_IDGenFormContainer5">
+                                    <f:formElements>
+                                        <f:FormElement id="_IDGenFormElement16">
+                                            <m:Label id="idlblConfCreatedOn" text="Confirmation Created at" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtConfCreatedOn" text="{path:'CreatedDate',type:'sap.ui.model.type.Date',formatOptions:{pattern:'dd/MM/YYYY'}} {path:'CreatedTime',type:'sap.ui.model.odata.type.Time'}"/>
+                                        </f:FormElement>
+                                        <f:FormElement id="_IDGenFormElement17">
+                                            <m:Label id="idLblPOChangedAt" text="PO Changed at" class="confrmationDetailsLabel"/>
+                                            <m:Text id="idTxtPOChangedAt" text="{path:'POChangedAt',type:'sap.ui.model.type.DateTime', formatOptions:{pattern:'dd/MM/YYYY hh:mm:ss'}}"/>
+                                        </f:FormElement>
+                                        
+                                    </f:formElements>
+                                </f:FormContainer>
+                            </f:formContainers>
+                        </f:Form>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+        </sections> 
+    </ObjectPageLayout>
+</mvc:View>

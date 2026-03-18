@@ -45,16 +45,7 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "OrderCofimration-manage": {
-          "semanticObject": "OrderCofimration",
-          "action": "manage",
-          "title": "{{flpTitle}}",
-          "subTitle": "{{flpSubtitle}}",
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          }
-        },
+        
         "ZSupplierOrderConfirmation-manage": {
           "semanticObject": "ZSupplierOrderConfirmation",
           "action": "manage",
