@@ -55,20 +55,25 @@ export default class MainView extends BaseController {
         if (!oEvent.getParameter("arguments") || !(oEvent.getParameter("arguments") as any).InstanceID) {
             return;
         }
-        let sConfId = (oEvent.getParameter("arguments") as any).InstanceID;
+        
+        let sWFTaskID = (oEvent.getParameter("arguments") as any).InstanceID; //this is workflow task internal id
         var that = this as Controller;
-        (that.getView()?.getModel() as ODataModel).read("/xIESOLxC_SUPL_CONF_OBJ('" + sConfId + "')", {
+        
+       
+        
+        //xIESOLxI_SUPL_CONF_EMAIL('000000217466')
+         (that.getView()?.getModel() as ODataModel).read("/xIESOLxI_SUPL_CONF_EMAIL('"+sWFTaskID+"')", {
             success: function (oData: any) {
-
-               
                 that.getView()?.bindObject({
                     path: "/xIESOLxC_SUPL_CONFIRMATION(ConfirmationID='" + oData.ConfirmationID + "',Counter='" + oData.Counter + "',PurchaseOrderItem='" + oData.PurchaseOrderItem + "',PurchaseOrder='" + oData.PurchaseOrder + "')"
                 });
+                that.getView()?.getModel()?.refresh(true);
             }.bind(this),
             error: function (oResp: any) {
 
             }.bind(this)
         });
+
     }
     public checkObjectExists() {
         var that = this as Controller;
