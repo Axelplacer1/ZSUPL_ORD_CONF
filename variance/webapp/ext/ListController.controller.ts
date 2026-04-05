@@ -1,9 +1,8 @@
 import ResourceBundle from "sap/base/i18n/ResourceBundle";
-import DynamicPage from "sap/f/DynamicPage";
+
+
 import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
-import Page from "sap/m/Page";
-
 import Event from "sap/ui/base/Event";
 import SmartFilterBar from "sap/ui/comp/smartfilterbar/SmartFilterBar";
 import Control from "sap/ui/core/Control";
@@ -161,17 +160,18 @@ export default {
                 let aMessages = oTempModel.getProperty("/messages") || [];
                 let oBundle = that.getModel("i18n").getResourceBundle();
                 let sText = oBundle.getText("PROCESSED_SUCCESSFULLY", [oObject.PurchaseOrder + "/" + oObject.PurchaseOrderItem]);
-                if (oResp && Array.isArray(oResp.results) && oResp.results.length > 0) {
+                if (oResp && Array.isArray(oResp.results) && oResp.results.length > 0 && that.getModelMessages().length === 0) {
                     oResp.results.forEach(function(oMsg:any){
                         aMessages.splice(0, 0, {
                             "purchaseOrder": oObject.PurchaseOrder + "/" + oObject.PurchaseOrderItem,
-                            "type": oMsg.Type === 'E' ? "Error" :
-                                oMsg.Type === 'W' ? "Warning" :
-                                    oMsg.Type === 'S' ? "Success" : "Information",
-                            "title": oMsg.MessageText, "description": oMsg.MessageText,
-                            "icon": oMsg.Type === 'S' ? "sap-icon://message-success" :
-                                oMsg.Type === 'E' ? "sap-icon://message-error" :
-                                    oMsg.Type === 'W' ? "sap-icon://message-warning" : "sap-icon://message-information"
+                            "type": oMsg.msgty === 'E' ? "Error" :
+                                oMsg.msgty === 'W' ? "Warning" :
+                                    oMsg.msgty === 'S' ? "Success" : "Information",
+                            "title": oMsg.MessageText, 
+                            "description": oMsg.MessageText,
+                            "icon": oMsg.msgty === 'S' ? "sap-icon://message-success" :
+                                oMsg.msgty === 'E' ? "sap-icon://message-error" :
+                                    oMsg.msgty === 'W' ? "sap-icon://message-warning" : "sap-icon://message-information"
                         });
                     });
 
@@ -193,7 +193,7 @@ export default {
             error: function () {
                 if (aIndices.length <= 1) {
                     that.getView().setBusy(false);
-                    that.showModelErrors(true);
+                    that.showModelErrors(false);
                     return;
                 }
                 let aMessages = oTempModel.getProperty("/messages") || [];
@@ -341,7 +341,7 @@ export default {
         
         //let oMsgModel = sap.ui.getCore().getMessageManager().getMessageModel();
         let oTempModel = this.getModel("tempModel") as JSONModel;
-        if (!bCleaned) {
+        //if (!bCleaned) {
             let aAll = this.getModelMessages();
             let aErrors = [];
             aErrors = this.cleanMessages(aAll);//This is to remove duplicate error/success messages
@@ -350,7 +350,7 @@ export default {
                 aMessages.push({ type: oE.type, title: oE.message, description: oE.description });
             });
             oTempModel.setProperty("/messages", aMessages);
-        }
+        //}
         oTempModel.setProperty("/navigateBack", false);
         var oDialog = sap.ui.xmlfragment((this as any).getView().getId(), "au.com.iesol.po.confirmation.variance.fragments.ErrorMessages", this) as Dialog;
         (this as any).getView().addDependent(oDialog);
@@ -374,21 +374,27 @@ export default {
         }
         return aErrors;
     }
-    , onDialogClose: function (oEvent: Event, oDialogIn: Dialog) {
+    , onDialogClose: function (oEvent:any, oDialogIn: Dialog) {
 
-        let oDialog = oEvent ? (oEvent.getSource() as Dialog) : oDialogIn;
+        let oDialog = oEvent ? (oEvent.getSource().getParent() as Dialog) : oDialogIn;
 
         oDialog.close();
         try {
-            let oPage = oDialog.getContent()[0] as Page;
-            if (oPage instanceof DynamicPage) {
-                //oPage.destroyHeader();
-                oPage.destroyContent();
-                oPage.destroyFooter();
-                oPage.destroy();
-            }
-        } catch (e) { }
+              oDialog.getContent().forEach(function(oC:any){
+                try{
+                    if(oC.getMetadata().getName() === "sap.m.Table"){
+                        oC.unbindAggregation("items");
+                        oC.destroyColumns();
+                    }
+                    oC.destroy();
+                }catch(e){}
+              });  
+            }catch (e) { }
         oDialog.destroyContent();
         oDialog.destroy();
+    }
+    ,onAfterDialogClose:function(oEvent:any){
+       let oDialog = oEvent.getSource(); 
+       this.onDialogClose(undefined,oDialog);
     }
 }

@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:AppData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
 
     <Dialog id="_IDGenDialog2" contentWidth="50%" contentHeight="30%" title="{i18n>REJECTION_REASONS_TITLE}" draggable="true" class="sapUiSizeCompact"
-        afterOpen="" afterClose="onDialogClose">
+        afterOpen="" afterClose="onAfterDialogClose">
 
 		<content>
             <f:Form id="_IDGenForm" editable="true" title="" class="sapUiSmallMargin">
@@ -28,7 +28,7 @@
         </content>
 		
 		<buttons>
-			<Button id="_IDGenButton4" text="{i18n>CANCEL}" type="Accept" press="onCancelAction" enabled="{= ${tempModel>/cancelled} !==true}"/>
+			<Button id="_IDGenButton4" text="{i18n>CANCEL}" type="Accept" press="onDialogClose" enabled="{= ${tempModel>/cancelled} !==true}"/>
 			<Button id="_IDGenButton5" text="{i18n>CONTINUE}" type="Accept" press="RejectVarianceContinue" enabled="{tempModel>/enableClose}" />
 		</buttons>
 	</Dialog>

@@ -16,7 +16,7 @@ export default class BaseController extends Controller {
     public onInit(): void {
 
     }
-    public getModel(sName: String): any {
+    public getModel(sName?: String): any {
         return (this as any).getView().getModel(sName);
     }
 
@@ -40,7 +40,7 @@ export default class BaseController extends Controller {
             oTempModel.setProperty("/messages", aMessages);
         }
         var sId = (this as Controller).getView()?.getId();
-        var oDialog = sap.ui.xmlfragment(sId ? sId : "", "au.com.iesol.po.confirmation.variancewftask.views.fragments.ErrorMessages", this) as Dialog;
+        var oDialog = sap.ui.xmlfragment(sId ? sId : "", "au.com.iesol.po.confirmation.variancewftask.view.fragments.ErrorMessages", this) as Dialog;
         (this as Controller).getView()?.addDependent(oDialog);
         oDialog.open();
     }

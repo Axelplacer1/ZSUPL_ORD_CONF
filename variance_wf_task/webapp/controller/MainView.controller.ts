@@ -78,7 +78,7 @@ export default class MainView extends BaseController {
     public checkObjectExists() {
         var that = this as Controller;
         var oVariance = that.getView()?.getBindingContext()?.getObject();
-        if (!oVariance || !oVariance.ConfirmationId || !oVariance.Ponumber || !oVariance.Poitem || !oVariance.Counter) {
+        if (!oVariance || !oVariance.ConfirmationID || !oVariance.PurchaseOrder || !oVariance.PurchaseOrderItem || !oVariance.Counter) {
             MessageBox.show("Confirmation data not available for action", {
                 title: "Action confirmation"
             });
@@ -104,7 +104,7 @@ export default class MainView extends BaseController {
         oTempModel.setProperty("/rejectionReason", "");
         oTempModel.setProperty("/messages", []);
         let sId = this.getView()?.getId();
-        let oDialog = sap.ui.xmlfragment(sId ? sId : "", "iesol.supplier.confirm.action.fragments.RejectionReasonsDialog", this) as Dialog;
+        let oDialog = sap.ui.xmlfragment(sId ? sId : "", "au.com.iesol.po.confirmation.variancewftask.view.fragments.RejectionReasonsDialog", this) as Dialog;
         this.getView()?.addDependent(oDialog);
         oDialog.open();
     }
@@ -143,7 +143,7 @@ export default class MainView extends BaseController {
     }
     public actionConfirmation(oVariance: any, sAction: string, sReasons: string): void {
         let that = this as Controller;
-        let oModel = this.getModel("") as ODataModel;
+        let oModel = this.getModel() as ODataModel;
         let oTempModel = this.getModel("tempModel") as JSONModel;
         let oParameters = {
             "ConfirmationID": oVariance.ConfirmationID,
