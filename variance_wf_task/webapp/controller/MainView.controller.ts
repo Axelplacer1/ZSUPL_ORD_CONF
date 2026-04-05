@@ -142,7 +142,7 @@ export default class MainView extends BaseController {
         this.actionConfirmation(oVariance, "DELPOITEM", "");
     }
     public actionConfirmation(oVariance: any, sAction: string, sReasons: string): void {
-        let that = this as Controller;
+        let that = this as any;
         let oModel = this.getModel() as ODataModel;
         let oTempModel = this.getModel("tempModel") as JSONModel;
         let oParameters = {
@@ -182,7 +182,7 @@ export default class MainView extends BaseController {
                 let aMessages = oTempModel.getProperty("/messages") || [];
                 let oBundle = (that.getView()?.getModel("i18n") as ResourceModel).getResourceBundle() as ResourceBundle;
                 let sText = oBundle.getText("PROCESSED_SUCCESSFULLY", [oVariance.PurchaseOrder + "/" + oVariance.PurchaseOrderItem]);
-                if (oResp && Array.isArray(oResp.results) && oResp.results.length > 0) {
+                if (oResp && Array.isArray(oResp.results) && oResp.results.length > 0 && that.getModelMessages().length === 0) {
                     oResp.results.forEach(function (oMsg: any) {
                         aMessages.splice(0, 0, {
                             "purchaseOrder": oVariance.PurchaseOrder + "/" + oVariance.PurchaseOrderItem,
@@ -204,7 +204,7 @@ export default class MainView extends BaseController {
                     });
                 }
                 oTempModel.setProperty("/messages", aMessages);
-                (that as BaseController).showModelErrors(true);
+                (that as BaseController).showModelErrors(that.getModelMessages().length === 0);//true -->displays above messages, false --> displays messages in the model
                 (that.getOwnerComponent()?.getComponentData() as any).onTaskUpdate();
             }.bind(this),
             error: function () {
